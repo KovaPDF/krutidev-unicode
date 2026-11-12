@@ -1,0 +1,45 @@
+[build-system]
+requires = ["hatchling==1.33.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "krutidev-unicode"
+version = "1.0.0"
+description = "Convert Kruti Dev 010 Hindi text to Unicode and back. Pure Python, no dependencies. The engine behind kovapdf.com/kruti-dev-to-unicode."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+requires-python = ">=3.10"
+authors = [{ name = "KovaPDF", email = "support@kovapdf.com" }]
+keywords = ["hindi", "kruti dev", "krutidev", "kruti-dev-010", "devanagari", "unicode", "converter", "kruti-to-unicode", "mangal"]
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Developers",
+  "Natural Language :: Hindi",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Topic :: Text Processing :: Linguistic",
+  "Typing :: Typed",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://www.kovapdf.com/kruti-dev-to-unicode"
+Source = "https://github.com/kovapdf/krutidev-unicode"
+Issues = "https://github.com/kovapdf/krutidev-unicode/issues"
+
+[project.scripts]
+krutidev-unicode = "krutidev_unicode.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/krutidev_unicode"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/krutidev_unicode", "tests", "README.md", "LICENSE", "pyproject.toml"]
+
+# the shared vectors live one folder up; ship a copy so the sdist tests run on their own
+[tool.hatch.build.targets.sdist.force-include]
+"../test/vectors.json" = "tests/vectors.json"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

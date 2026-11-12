@@ -1,0 +1,52 @@
+name: ci
+
+# Tests the JavaScript package (Node 18 runtime check, Node 24 full tests) and
+# the Python package against the shared test/vectors.json. No secrets.
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  node:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm test
+      - name: Package contents
+        run: npm pack --dry-run
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
+        with:
+          node-version: 18
+      - name: Runs on Node 18 (import, require, CLI)
+        run: |
+          node -e "const b=require('./dist/cjs/index.js'); if (b.toUnicode('dk;Z') !== 'कार्य') process.exit(1)"
+          node --input-type=module -e "import {toKruti} from './dist/esm/index.js'; if (toKruti('कार्य') !== 'dk;Z') process.exit(1)"
+          echo 'dk;Z' | node bin/krutidev-unicode.mjs to-unicode
+
+  python:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      matrix:
+        python: ["3.10", "3.13"]
+    defaults:
+      run:
+        working-directory: python
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: ${{ matrix.python }}
+      - run: python -m pip install pytest==9.2.0
+      - run: python -m pip install .
+      - run: python -m pytest -q

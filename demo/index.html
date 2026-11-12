@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kruti Dev Unicode demo</title>
+<style>
+  :root { --bg: #ffffff; --fg: #1b1f24; --muted: #5b6470; --line: #d7dce2; --accent: #1f5fbf; }
+  @media (prefers-color-scheme: dark) { :root { --bg: #14171b; --fg: #e8ebef; --muted: #9aa4b0; --line: #2f353d; --accent: #7fb0ff; } }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.5 system-ui, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.5rem; margin: 0 0 4px; }
+  p { color: var(--muted); margin: 0 0 16px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 700px) { .row { grid-template-columns: 1fr; } }
+  label { display: block; font-weight: 600; margin-bottom: 6px; }
+  textarea { width: 100%; min-height: 220px; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: transparent; color: inherit; font: 18px/1.6 "Noto Sans Devanagari", "Nirmala UI", "Mangal", sans-serif; }
+  .bar { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 12px 0 16px; }
+  button { padding: 8px 14px; border: 1px solid var(--accent); border-radius: 8px; background: var(--accent); color: #fff; font: inherit; cursor: pointer; }
+  button.ghost { background: transparent; color: var(--accent); }
+  footer { margin-top: 24px; color: var(--muted); font-size: 0.9rem; }
+  a { color: var(--accent); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Kruti Dev and Unicode Hindi</h1>
+  <p>Paste Kruti Dev 010 text on the left or Unicode Hindi on the right. Everything runs in this page; nothing is uploaded.</p>
+  <div class="bar">
+    <button id="toU">Kruti Dev to Unicode</button>
+    <button id="toB" class="ghost">Unicode to Kruti Dev</button>
+    <label style="display:inline;font-weight:400"><input type="checkbox" id="keep" checked> keep English words</label>
+
+  </div>
+  <div class="row">
+    <div><label for="legacy">Kruti Dev 010 codes</label><textarea id="legacy" spellcheck="false">esjk uke jke gSA PDF Q+kby dks Word esa cnysaA</textarea></div>
+    <div><label for="unicode">Unicode Hindi</label><textarea id="unicode" spellcheck="false"></textarea></div>
+  </div>
+  <p id="info"></p>
+  <footer>
+    Need it for whole PDF or Word files? Use KovaPDF: <a href="https://www.kovapdf.com/kruti-dev-to-unicode">https://www.kovapdf.com/kruti-dev-to-unicode</a><br>
+    Built by KovaPDF, <a href="https://www.kovapdf.com">https://www.kovapdf.com</a>. Open this page through a local web server (for example <code>python3 -m http.server</code> in the package folder) after <code>npm run build</code>.
+  </footer>
+</main>
+<script type="module">
+  import { toUnicode, toKruti, detectEncoding } from '../dist/esm/index.js';
+  const $ = (id) => document.getElementById(id);
+  const info = (s) => { $('info').textContent = s; };
+  $('toU').onclick = () => {
+    $('unicode').value = toUnicode($('legacy').value, { keepEnglish: $('keep').checked });
+    info('Detected input: ' + detectEncoding($('legacy').value).kind);
+  };
+  $('toB').onclick = () => {
+    $('legacy').value = toKruti($('unicode').value);
+    info('Set the left side in the Kruti Dev 010 font to see Hindi letters.');
+  };
+  $('toU').click();
+</script>
+</body>
+</html>

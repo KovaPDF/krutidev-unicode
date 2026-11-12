@@ -1,0 +1,10 @@
+node_modules/
+dist/
+*.tgz
+python/.venv/
+python/venv/
+python/dist/
+python/build/
+python/**/__pycache__/
+python/**/*.egg-info/
+.pytest_cache/
