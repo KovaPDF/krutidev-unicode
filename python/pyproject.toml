@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "krutidev-unicode"
-version = "1.0.0"
+version = "1.0.1"
 description = "Convert Kruti Dev 010 Hindi text to Unicode and back. Pure Python, no dependencies. The engine behind kovapdf.com/kruti-dev-to-unicode."
 readme = "README.md"
 license = "MIT"
@@ -25,8 +25,8 @@ dependencies = []
 
 [project.urls]
 Homepage = "https://www.kovapdf.com/kruti-dev-to-unicode"
-Source = "https://github.com/kovapdf/krutidev-unicode"
-Issues = "https://github.com/kovapdf/krutidev-unicode/issues"
+Source = "https://github.com/KovaPDF/krutidev-unicode"
+Issues = "https://github.com/KovaPDF/krutidev-unicode/issues"
 
 [project.scripts]
 krutidev-unicode = "krutidev_unicode.cli:main"

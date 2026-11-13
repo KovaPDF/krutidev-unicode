@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.0.0 (unreleased)
+## 1.0.1
+
+* Package links point to github.com/KovaPDF/krutidev-unicode (npm and PyPI).
+* Published with npm trusted publishing (no stored token).
+
+## 1.0.0
 
 * First release: Kruti Dev 010 to Unicode and Unicode to Kruti Dev 010, taken from the KovaPDF website engine.
 * JavaScript: ESM, CommonJS and TypeScript types, zero runtime dependencies, `krutidev-unicode` CLI.

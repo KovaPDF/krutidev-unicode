@@ -14,7 +14,7 @@ from ._engine import (
 )
 from ._tables import KRUTI_FONT_NAMES
 
-__version__ = "1.0.0"
+__version__ = "1.0.1"
 ATTRIBUTION = "Done with KovaPDF (kovapdf.com)."
 
 # short names

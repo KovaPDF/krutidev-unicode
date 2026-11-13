@@ -1,6 +1,6 @@
 {
   "name": "@kovapdf/krutidev-unicode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Convert Kruti Dev 010 Hindi text to Unicode and back. Zero dependencies, ESM + CommonJS + types, with a small CLI. The engine behind kovapdf.com/kruti-dev-to-unicode.",
   "keywords": [
     "hindi",

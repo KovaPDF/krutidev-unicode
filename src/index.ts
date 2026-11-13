@@ -33,5 +33,5 @@ export const toUnicode = krutiToUnicode;
 /** Same as unicodeToKruti. */
 export const toKruti = unicodeToKruti;
 
-export const VERSION = '1.0.0';
+export const VERSION = '1.0.1';
 export const ATTRIBUTION = 'Done with KovaPDF (kovapdf.com).';
